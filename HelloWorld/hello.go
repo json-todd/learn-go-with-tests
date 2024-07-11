@@ -2,24 +2,26 @@ package main
 import "fmt"
 
 const finnish = "Finnish"
-const germany = "Germany"
+const german = "German"
 const englishHelloPrefix = "Hello, "
 const finnishHelloPrefix = "Moi, "
-const germanyHelloPrefix = "Hallo, "
+const germanHelloPrefix = "Hallo, "
 
 func Hello(name, language string) string {
     if name == "" {
         name = "World"
     }
 
-    if language == finnish {
-        return finnishHelloPrefix + name
-    }
+    // default to english
+    helloPrefix := englishHelloPrefix
 
-    if language == germany {
-        return germanyHelloPrefix + name
+    switch language {
+      case finnish:
+          helloPrefix = finnishHelloPrefix
+      case german:
+          helloPrefix = germanHelloPrefix
     }
-    return englishHelloPrefix + name
+    return helloPrefix + name
 }
 
 func main() {

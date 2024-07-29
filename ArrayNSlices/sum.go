@@ -6,3 +6,12 @@ func Sum(numbers []int) (sum int) {
     }
     return
 }
+
+func SumAll(numbersToSum...[]int) []int {
+    var sumSlices []int
+    for _, slize := range numbersToSum {
+        sum := Sum(slize)
+        sumSlices = append(sumSlices, sum)
+    }
+    return sumSlices
+}

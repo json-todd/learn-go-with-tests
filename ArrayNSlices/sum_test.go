@@ -62,20 +62,49 @@ func TestSum(t *testing.T) {
     })
 }
 
-func TestSumAll(t *testing.T) {
-    got := SumAll([]int{1,2}, []int{0,9})
-    want:= []int{3,9}
-
-    if ! reflect.DeepEqual(got,want) {
-        t.Errorf("got %v want %v", got, want)
+func checkSums (t testing.TB, got, want []int) {
+    t.Helper()
+    if ! reflect.DeepEqual(got, want) {
+      t.Errorf("got %v want %v", got, want)
     }
 }
 
-func TestSumTail(t *testing.T) {
-		got := SumAllTail([]int{1,2}, []int{0,9})
-		want := []int{2,9}
+func TestSumAll(t *testing.T) {
+    t.Run("make the sums of some slices", func (t *testing.T) {
+      got := SumAll([]int{1,2}, []int{0,9})
+      want:= []int{3,9}
 
-		if !reflect.DeepEqual(got,want) {
-				t.Errorf("got %v want %v", got, want)
-		}
+      checkSums(t, got, want)
+    })
+
+    t.Run("safely sum of empty slices", func (t *testing.T) {
+      got := SumAll([]int{}, []int{3,4,5})
+      want := []int{0,12}
+
+      checkSums(t, got, want)
+    })
+}
+
+func TestSumTail(t *testing.T) {
+		t.Run("make the sums of some slices", func (t *testing.T) {
+      got := SumAllTail([]int{1,2}, []int{0,9})
+      want := []int{2,9}
+
+      checkSums(t, got, want)
+		})
+
+    t.Run("safely sums empty slices", func (t *testing.T) {
+      got := SumAllTail([]int{}, []int{3,4,5})
+      want := []int{0,9}
+
+      checkSums(t, got, want)
+    })
+
+
+    t.Run("make the sums of slices which contains an 1-elem slice", func (t *testing.T) {
+      got := SumAllTail([]int{1}, []int{3,4,5})
+      want := []int{0,9}
+
+      checkSums(t, got, want)
+    })
 }

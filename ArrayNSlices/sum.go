@@ -17,11 +17,15 @@ func SumAll(numbersToSum...[]int) []int {
 }
 
 func SumAllTail(numbersToSum...[]int) []int {
-	var tailNumbersToSum [][]int	
-	for _, slize := range numbersToSum {
-		tailSlize := slize[1:]
-		tailNumbersToSum = append(tailNumbersToSum, tailSlize)
-	}
+    var tailNumbersToSum [][]int	
+    for _, slize := range numbersToSum {
+        if len(slize) == 0 {
+          tailNumbersToSum = append(tailNumbersToSum, []int{0})
+        } else {
+          tailSlize := slize[1:]
+          tailNumbersToSum = append(tailNumbersToSum, tailSlize)
+        }
+    }
 
 	return SumAll(tailNumbersToSum...)
 }
